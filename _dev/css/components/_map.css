@@ -1,0 +1,15 @@
+.container {
+	max-width: 80%;
+	margin: 0 auto;
+}
+
+.map {
+	border: 1px solid $gridColor;
+	border-spacing: 0;
+	border-collapse: collapse;
+	&__block {
+		width: 30px;
+		height: 30px;
+		border: 1px solid $gridColor;
+	}
+}

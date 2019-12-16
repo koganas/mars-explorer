@@ -1,0 +1,50 @@
+.rover {
+	background-color: $roverColor;
+	position: relative;
+	border: 1px solid $roverColor;
+}
+
+.north, .south, .east, .west {
+	&:after {
+		display: inline-block;
+		content: '';
+		width: 0; 
+		height: 0; 
+		position: absolute;
+		border-style: solid;
+	}
+}
+
+.north {
+	&:after {
+		top: -10px;
+		border-width: 0 15px 10px;
+		border-color: transparent transparent $roverColor transparent;
+	}
+}
+
+.south {
+	&:after {
+		bottom: -10px;
+		border-width: 10px 15px 0;
+		border-color: $roverColor transparent transparent transparent;
+	}
+}
+
+.east {
+	&:after {
+		top: 0;
+		right: -10px;
+		border-width: 16px 0px 16px 10px;
+		border-color: transparent transparent transparent $roverColor;
+	}
+}
+
+.west {
+	&:after {
+		top: 0;
+		left: -10px;
+		border-width: 16px 10px 16px 0;
+		border-color: transparent $roverColor transparent transparent;
+	}
+}

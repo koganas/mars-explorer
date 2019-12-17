@@ -15,6 +15,7 @@ class MarsExplorer {
     this.execCommand = this.execCommand.bind(this);
 
     this.map = document.querySelector('.map'); 
+    this.controlArea = document.querySelector('.control-area');    
     this.createPlateau();
   }
 
@@ -67,6 +68,8 @@ class MarsExplorer {
   
   /* Execute command. */
   execCommand(command) {
+      setTimeout(()=>this.printInfo(command), 800)
+
       if (!this.activeRover)
         return false;
 
@@ -80,15 +83,14 @@ class MarsExplorer {
   }
 
   /* Convert command string to array and send each command to active rover. */
-  sendCommand(commandList, id) {    
+  sendCommand(commandList) { 
     let cmd = [...commandList],
         run = setInterval(()=>{
-                this.getCurrentPosition(id)
-                console.log(cmd[0])
+                this.getCurrentPosition()
                 this.execCommand(cmd.shift())
                 if (cmd.length === 0) {                  
                   clearInterval(run)
-                  setTimeout(()=>this.getCurrentPosition(id), 800)
+                  setTimeout(()=>this.getCurrentPosition(), 800)
                 }
               }, 800);
 
@@ -114,12 +116,12 @@ class MarsExplorer {
   }
   
   /* Return array of rover final positions. */
-  getCurrentPosition(id) {
+  getCurrentPosition() {
     return this.rovers.map(rover => {
       const state = rover.getState();
-      let xPos = (state.pos.x===0) ? 1 : state.pos.x,
-          yPos = (state.pos.y===0) ? 1 : state.pos.y;
-      this.paintBlock(xPos, yPos, state.compass, id);
+      let xPos = (state.pos.x===0) ? 0 : state.pos.x,
+          yPos = (state.pos.y===0) ? 0 : state.pos.y;
+      this.paintBlock(xPos, yPos, state.compass);
       return `${xPos} ${yPos} ${state.compass}`;
     });
   }
@@ -127,7 +129,7 @@ class MarsExplorer {
   /* UI - Create plateau grid */
   createPlateau() {
     let x = this.size.x,
-        y = this.size.y;    
+        y = this.size.y;
     this.map.innerHTML = '';
     for (let i = x; i > 0; i--) {
       let tr = document.createElement('tr');
@@ -139,38 +141,42 @@ class MarsExplorer {
   }
 
   /* UI - Paint position */
-  paintBlock(x, y, compass, rover) {
+  paintBlock(x, y, compass, roverId) {
     let xLength = this.size.x,
         yLength = this.size.y;
-    console.log(rover);
-    this.activateRover(rover);
-    this.map.querySelectorAll('.R'+rover).forEach( e=>e.className = 'map__block' );
+    this.map.querySelectorAll('.rover-'+roverId).forEach( e=>e.className = 'map__block' );
     this.map.querySelectorAll('.map tr').forEach((e, i)=>{
       let yPos = this.size.y - i;
       if(y==yPos) {
         e.querySelectorAll('td').forEach((elm,i)=>{
           let xPos = i + 1;
           if(x==xPos) {
-            console.log(xPos, yPos, compass);
+            this.printInfo(xPos+' '+yPos+' - '+compass)
             elm.className = '';
             switch (compass) {
               case 'N':
-                elm.classList.add('R'+rover, 'rover', 'north')
+                elm.classList.add('rover', 'rover-'+roverId, 'north')
                 break;
               case 'S':
-                elm.classList.add('R'+rover, 'rover', 'south')
+                elm.classList.add('rover', 'rover-'+roverId, 'south')
                 break;
               case 'W':
-                elm.classList.add('R'+rover, 'rover', 'west')
+                elm.classList.add('rover', 'rover-'+roverId, 'west')
                 break;
               case 'E':
-                elm.classList.add('R'+rover, 'rover', 'east')
+                elm.classList.add('rover', 'rover-'+roverId, 'east')
                 break;
             }
           }
         });
       }      
     });
+  }
+
+  printInfo(info) {
+    const infoItem = document.createElement('li')
+    infoItem.appendChild( document.createTextNode(info) )
+    this.controlArea.appendChild(infoItem)
   }
 
 };

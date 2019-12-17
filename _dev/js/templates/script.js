@@ -8,8 +8,12 @@ import MarsExplorer from '../modules/_MarsExplorer';
 
     cacheDOM() {
       const marsExplorer = new MarsExplorer(5, 5);
+
       marsExplorer.addRover(1, 2, 'N');
-      marsExplorer.sendCommand('LMLMLMLMM', 0);
+      marsExplorer.sendCommand('LMLMLMLMM');
+
+/*      marsExplorer.addRover(3, 3, 'E');
+      marsExplorer.sendCommand('MMRMMRMRRM');*/
     }
   };
   core.init();

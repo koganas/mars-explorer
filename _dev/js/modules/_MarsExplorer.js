@@ -55,7 +55,7 @@ class MarsExplorer {
     const rover = new Rover(x, y, compass);
     this.rovers.push(rover);
     this.activeRover = rover;
-    this.paintBlock(x, y, compass, this.rovers.length);
+    this.renderRover(x, y, compass, this.rovers.length);
 
     // Index number acts as the Rover ID.
     return this.rovers.length - 1;
@@ -95,13 +95,13 @@ class MarsExplorer {
               }, 800);
   }
   
-  /* Return array of rover final positions. */
+  /* Return rover positions. */
   getCurrentPosition() {
     return this.rovers.map((rover, i) => {
       const state = rover.getState();
       let xPos = state.pos.x,
           yPos = state.pos.y;
-      this.paintBlock(xPos, yPos, state.compass, i);
+      this.renderRover(xPos, yPos, state.compass, i);
       return `${xPos} ${yPos} ${state.compass}`;
     });
   }
@@ -120,8 +120,8 @@ class MarsExplorer {
     }
   }
 
-  /* UI - Paint position */
-  paintBlock(x, y, compass, roverId) {
+  /* UI - Render rover on current position */
+  renderRover(x, y, compass, roverId) {
     let xLength = this.size.x,
         yLength = this.size.y;
     this.map.querySelectorAll('.rover-'+roverId).forEach( e=>e.className = 'map__block' );
@@ -153,6 +153,7 @@ class MarsExplorer {
     });
   }
 
+  /* UI - Print information */
   printInfo(info) {
     const infoItem = document.createElement('li')
     infoItem.appendChild( document.createTextNode(info) )

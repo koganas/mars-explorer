@@ -1,8 +1,8 @@
 'use strict'
 
 const banner = `/*
-	Project Name: Nunjucks + PostCSS Boilerplate
-	Description: A simple Nunjucks + PostCSS Boilerplate
+	Project Name: Mars Explorer UI
+	Description: UI to observe rovers exploring Mars.
 	Author: Daniel Koganas
 */`
 

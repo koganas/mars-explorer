@@ -12,7 +12,7 @@ import MarsExplorer from '../modules/_MarsExplorer';
       marsExplorer.addRover(1, 2, 'N');
       marsExplorer.sendCommand('LMLMLMLMM');
 
-/*      marsExplorer.addRover(3, 3, 'E');
+/*    marsExplorer.addRover(3, 3, 'E');
       marsExplorer.sendCommand('MMRMMRMRRM');*/
     }
   };

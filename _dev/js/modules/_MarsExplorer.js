@@ -93,35 +93,15 @@ class MarsExplorer {
                   setTimeout(()=>this.getCurrentPosition(), 800)
                 }
               }, 800);
-
-/*
-    [...commandList].map((cmd, i, array)=>{
-      const arraySize = array.length - 1;
-      let run;
-
-      this.execCommand(cmd)
-      if(i === 0) {
-        this.getCurrentPosition()
-      } else if(i < arraySize && i != 0) {
-        run = setInterval(()=>{
-          this.getCurrentPosition()
-        }, 1000);
-      } else {
-        clearInterval(run);
-      }
-      
-    })
-*/
-
   }
   
   /* Return array of rover final positions. */
   getCurrentPosition() {
-    return this.rovers.map(rover => {
+    return this.rovers.map((rover, i) => {
       const state = rover.getState();
-      let xPos = (state.pos.x===0) ? 0 : state.pos.x,
-          yPos = (state.pos.y===0) ? 0 : state.pos.y;
-      this.paintBlock(xPos, yPos, state.compass);
+      let xPos = state.pos.x,
+          yPos = state.pos.y;
+      this.paintBlock(xPos, yPos, state.compass, i);
       return `${xPos} ${yPos} ${state.compass}`;
     });
   }
@@ -145,26 +125,26 @@ class MarsExplorer {
     let xLength = this.size.x,
         yLength = this.size.y;
     this.map.querySelectorAll('.rover-'+roverId).forEach( e=>e.className = 'map__block' );
-    this.map.querySelectorAll('.map tr').forEach((e, i)=>{
-      let yPos = this.size.y - i;
+    this.map.querySelectorAll('.map tr').forEach((elm, idx)=>{
+      let yPos = this.size.y - idx;
       if(y==yPos) {
-        e.querySelectorAll('td').forEach((elm,i)=>{
+        elm.querySelectorAll('td').forEach((e, i)=>{
           let xPos = i + 1;
           if(x==xPos) {
-            this.printInfo(xPos+' '+yPos+' - '+compass)
-            elm.className = '';
+            this.printInfo(xPos+' '+yPos+' - '+compass)              
+            e.className = '';
             switch (compass) {
               case 'N':
-                elm.classList.add('rover', 'rover-'+roverId, 'north')
+                e.classList.add('rover', 'rover-'+roverId, 'north')
                 break;
               case 'S':
-                elm.classList.add('rover', 'rover-'+roverId, 'south')
+                e.classList.add('rover', 'rover-'+roverId, 'south')
                 break;
               case 'W':
-                elm.classList.add('rover', 'rover-'+roverId, 'west')
+                e.classList.add('rover', 'rover-'+roverId, 'west')
                 break;
               case 'E':
-                elm.classList.add('rover', 'rover-'+roverId, 'east')
+                e.classList.add('rover', 'rover-'+roverId, 'east')
                 break;
             }
           }

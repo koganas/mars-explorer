@@ -20,16 +20,28 @@
         <![endif]-->
 
         <div class="container">
-            <input type="number" name="xSize" value="5" />
-            <input type="number" name="ySize" value="5" />
-            <br/>
-            
-            <input type="number" name="xPos" value="3" />
-            <input type="number" name="yPos" value="3" />
-            <input type="text" name="compass" value="E" />
-            
-            <input type="text" name="command" value="MMRMMRMRRM" />
-            <button type="submit" id="btnAdd">Add Rover</button>
+            <div>
+                <label>
+                    X Size
+                    <input type="number" name="xSize" value="5" />
+                </label>
+                <label>
+                    Y Size
+                    <input type="number" name="ySize" value="5" />
+                </label>
+            </div>
+            <div>
+                <label>X <input type="number" name="xPos" value="3" /></label>
+                <label>Y <input type="number" name="yPos" value="3" /></label>
+                <label>compass <input type="text" name="compass" value="E" /></label>
+            </div>
+            <div>
+                <label>
+                    Commands
+                    <input type="text" name="command" value="MMRMMRMRRM" />
+                </label>                
+                <button type="submit" id="btnAdd">Add Rover</button>
+            </div>
 
             <table class="map"></table>
 

@@ -4,7 +4,7 @@
 	border: 1px solid $roverColor;
 }
 
-.north, .south, .east, .west {
+.N, .S, .E, .W {
 	&:after {
 		display: inline-block;
 		content: '';
@@ -15,7 +15,7 @@
 	}
 }
 
-.north {
+.N {
 	&:after {
 		top: -10px;
 		border-width: 0 15px 10px;
@@ -23,7 +23,7 @@
 	}
 }
 
-.south {
+.S {
 	&:after {
 		bottom: -10px;
 		border-width: 10px 15px 0;
@@ -31,7 +31,7 @@
 	}
 }
 
-.east {
+.E {
 	&:after {
 		top: 0;
 		right: -10px;
@@ -40,7 +40,7 @@
 	}
 }
 
-.west {
+.W {
 	&:after {
 		top: 0;
 		left: -10px;

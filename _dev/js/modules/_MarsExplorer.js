@@ -74,17 +74,15 @@ class MarsExplorer {
       if (!this.activeRover)
         return false;
 
-      if (command === 'M') {
+      if (command === 'M')
         return this.activeRover.move(this.checkPosition);
-      }
       
-      if (command === 'L' || command === 'R') {
+      if (command === 'L' || command === 'R')
         return this.activeRover.rotate(command);
-      }
   }
 
   /* Convert command string to array and send each command to active rover. */
-  sendCommand(commandList) {    
+  sendCommand(commandList) {
     this.btnAdd.disabled = true;
     let roverId = this.rovers.length - 1,
         cmd = [...commandList],
@@ -127,7 +125,8 @@ class MarsExplorer {
   /* UI - Render rover on current position */
   renderRover(x, y, compass, roverId) {
     let xLength = this.size.x,
-        yLength = this.size.y;
+        yLength = this.size.y,
+        compassClass;
     this.map.querySelectorAll('.rover-'+roverId).forEach( e=>e.className = 'map__block' );
     this.map.querySelectorAll('.map tr').forEach((elm, idx)=>{
       let yPos = this.size.y - idx;
@@ -135,22 +134,9 @@ class MarsExplorer {
         elm.querySelectorAll('td').forEach((e, i)=>{
           let xPos = i + 1;
           if(x==xPos) {
-            this.printInfo(xPos+' '+yPos+' - '+compass)              
+            this.printInfo(xPos+' '+yPos+' - '+compass);
             e.className = '';
-            switch (compass) {
-              case 'N':
-                e.classList.add('rover', 'rover-'+roverId, 'north')
-                break;
-              case 'S':
-                e.classList.add('rover', 'rover-'+roverId, 'south')
-                break;
-              case 'W':
-                e.classList.add('rover', 'rover-'+roverId, 'west')
-                break;
-              case 'E':
-                e.classList.add('rover', 'rover-'+roverId, 'east')
-                break;
-            }
+            e.classList.add('rover', 'rover-'+roverId, compass);
           }
         });
       }      

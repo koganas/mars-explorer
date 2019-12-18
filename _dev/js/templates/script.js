@@ -8,29 +8,32 @@ import MarsExplorer from '../modules/_MarsExplorer';
 
     cacheDOM() {
       this.controlArea = document.querySelector('.control-area');
-      this.button = document.querySelector('#btnAdd');
-      this.button.addEventListener('click', () => {
+      this.btnCreate = document.querySelector('#newPlateau');
+      this.btnAddRover = document.querySelector('#addRover');
+
+      this.btnCreate.addEventListener('click', () => {
         const xSize = document.querySelector('input[name="xSize"]').value,
-          ySize = document.querySelector('input[name="ySize"]').value,
-          x = document.querySelector('input[name="xPos"]').value,
+          ySize = document.querySelector('input[name="ySize"]').value;
+        this.marsExplorer = this.newExplorer(xSize, ySize);
+      });
+      
+      this.btnAddRover.addEventListener('click', () => {
+        const x = document.querySelector('input[name="xPos"]').value,
           y = document.querySelector('input[name="yPos"]').value,
           compass = document.querySelector('input[name="compass"]').value,
           command = document.querySelector('input[name="command"]').value;
         this.controlArea.innerHTML = '';
-        //console.log(Number(xSize), Number(ySize), Number(x), Number(y), compass, command);
-        this.addRover(Number(xSize), Number(ySize), Number(x), Number(y), compass, command);
+        this.addRover(Number(x), Number(y), compass, command);
       });
     },
 
     newExplorer(xSize, ySize) {
-      const newExplorer = new MarsExplorer(xSize, ySize);
-      return newExplorer;
+      return new MarsExplorer(xSize, ySize);
     },
 
-    addRover(xSize, ySize, x, y, compass, command) {
-      const marsExplorer = this.newExplorer(xSize, ySize);
-      marsExplorer.addRover(x, y, compass);
-      marsExplorer.sendCommand(command);
+    addRover(x, y, compass, command) {
+      this.marsExplorer.addRover(x, y, compass);
+      this.marsExplorer.sendCommand(command);
     }
   };
   core.init();

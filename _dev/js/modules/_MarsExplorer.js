@@ -16,6 +16,7 @@ class MarsExplorer {
 
     this.map = document.querySelector('.map'); 
     this.controlArea = document.querySelector('.control-area');    
+    this.btnAdd = document.querySelector('#addRover');    
     this.createPlateau();
   }
 
@@ -83,27 +84,30 @@ class MarsExplorer {
   }
 
   /* Convert command string to array and send each command to active rover. */
-  sendCommand(commandList) { 
-    let cmd = [...commandList],
+  sendCommand(commandList) {    
+    this.btnAdd.disabled = true;
+    let roverId = this.rovers.length - 1,
+        cmd = [...commandList],
         run = setInterval(()=>{
-                this.getCurrentPosition()
-                this.execCommand(cmd.shift())
+                this.getCurrentPosition(roverId);
+                this.execCommand(cmd.shift());
                 if (cmd.length === 0) {                  
-                  clearInterval(run)
-                  setTimeout(()=>this.getCurrentPosition(), 800)
+                  clearInterval(run)                  
+                  setTimeout(()=> {
+                    this.getCurrentPosition(roverId);
+                    this.btnAdd.disabled = false;
+                  }, 800)
                 }
               }, 800);
   }
   
   /* Return rover positions. */
-  getCurrentPosition() {
-    return this.rovers.map((rover, i) => {
-      const state = rover.getState();
-      let xPos = state.pos.x,
-          yPos = state.pos.y;
-      this.renderRover(xPos, yPos, state.compass, i);
-      return `${xPos} ${yPos} ${state.compass}`;
-    });
+  getCurrentPosition(roverId) {
+    const state = this.rovers[roverId].getState();
+    let xPos = state.pos.x,
+        yPos = state.pos.y;
+    this.renderRover(xPos, yPos, state.compass, roverId);
+    return `${xPos} ${yPos} ${state.compass}`;
   }
 
   /* UI - Create plateau grid */

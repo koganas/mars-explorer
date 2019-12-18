@@ -14,9 +14,9 @@ import MarsExplorer from '../modules/_MarsExplorer';
       this.btnCreate.addEventListener('click', () => {
         const xSize = document.querySelector('input[name="xSize"]').value,
           ySize = document.querySelector('input[name="ySize"]').value;
-        this.marsExplorer = this.newExplorer(xSize, ySize);
+        this.marsExplorer = this.newExplorer(Number(xSize), Number(ySize));
       });
-      
+
       this.btnAddRover.addEventListener('click', () => {
         const x = document.querySelector('input[name="xPos"]').value,
           y = document.querySelector('input[name="yPos"]').value,

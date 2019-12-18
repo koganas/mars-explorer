@@ -115,9 +115,9 @@ class MarsExplorer {
     let x = this.size.x,
         y = this.size.y;
     this.map.innerHTML = '';
-    for (let i = x; i > 0; i--) {
+    for (let i = y; i > 0; i--) {
       let tr = document.createElement('tr');
-      for (let _i = y; _i > 0; _i--) {
+      for (let _i = x; _i > 0; _i--) {
         tr.insertAdjacentHTML('afterbegin', '<td class="map__block"></td>');
       }
       this.map.insertAdjacentElement('afterbegin', tr);

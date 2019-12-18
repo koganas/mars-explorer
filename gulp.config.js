@@ -20,7 +20,7 @@ const config = {
     connect: {
         host: 'localhost',
         port: '5353',
-        name: 'Nasa Space Apps Challenge'
+        name: 'Mars Explorer Project'
     }
 }
 

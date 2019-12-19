@@ -1,15 +1,17 @@
 defmodule MarsExplorer do
 
-  def execute([x, y], []), do: :ok # Create plateau
-  def execute([x, y], [rover_commands | rest]) do # Add rover and send commands
-     IO.inspect execute_for(rover_commands, [x, y])
-     execute([x, y], rest)
+  def exec([x, y], []), do: :ok # Create plateau
+  def exec([x, y], [rover_commands | rest]) do # Add rover and send commands
+     IO.inspect exec_for(rover_commands, [x, y]) # Get values from exec()
+     exec([x, y], rest)
   end
 
-  def execute_for([initial_position, commands], [x, y]), do: start_new_position(initial_position, commands) # Add rover and send commands
+  def exec_for([initial_position, commands], [x, y]), do: start_new_position(initial_position, commands) # Add rover and send commands
 
-  # Get current position and send each command
+  # Get current position
   def start_new_position(current_position, ""), do: current_position
+  
+  # Send each command
   def start_new_position(current_position, <<one_command::binary-size(1), rest::binary>>) do
     new_position(current_position, one_command) |> start_new_position(rest)
   end
@@ -34,7 +36,6 @@ defmodule MarsExplorer do
   #     position <> "E"
   #   end
   # end
-
   # def rotate_right(position, compass) do
   #   if compass = "N" do
   #     position <> "E"
@@ -66,13 +67,17 @@ defmodule MarsExplorer do
   def move(<<x_position::binary-size(1), y_position::binary-size(1), compass::binary-size(1)>>, "W"), do: dec(x_position) <> y_position <> compass
   def move(<<x_position::binary-size(1), y_position::binary-size(1), compass::binary-size(1)>>, "S"), do: x_position <> dec(y_position) <> compass
 
-  # def IO.gets("What's the size of the area you want to explore?")
-
   # Return rover final position
   defp inc(number), do: Integer.to_string(String.to_integer(number) + 1)
   defp dec(number), do: Integer.to_string(String.to_integer(number) - 1)
 
 end
 
+plateau = IO.gets "What's the size of the area you want to explore? \n"
+rover_position = IO.gets "Set the position for the rover \n"
+rover_command = IO.gets "Set the instructions for the rover \n"
 
-MarsExplorer.execute([5,5], [["12N", "LMLMLMLMM"], ["33E", "MMRMMRMRRM"]])
+if rover_command do
+  #MarsExplorer.exec([5,5], [["12N", "LMLMLMLMM"], ["33E", "MMRMMRMRRM"]])
+  IO.write MarsExplorer.exec(plateau, [[rover_position, rover_command], ["33E", "MMRMMRMRRM"]])
+end

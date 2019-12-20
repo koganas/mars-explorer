@@ -28,4 +28,7 @@ Wraps the explorer files and adds listeners to the form elements.
 
 ### src/MarsExplorer.ex
 Elixir version of this project.
-``` iex marsExplorer.ex ```
+``` bash
+# run mission
+iex marsExplorer.ex
+```

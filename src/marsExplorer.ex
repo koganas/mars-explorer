@@ -1,5 +1,28 @@
 defmodule MarsExplorer do
 
+  # Get values from prompt
+  def get_x() do
+    x = IO.gets "What's the size of X of the area? > "
+    val = String.trim(x)
+    String.to_integer(val)
+  end
+
+  def get_y() do
+    y = IO.gets "What's the value of Y of the area? > "
+    val = String.trim(y)
+    String.to_integer(val)
+  end
+
+  def get_position() do
+    pos = IO.gets "Set the initial position of the rover (ex. 34E) > "
+    String.upcase(String.trim(pos))
+  end
+
+  def get_commands() do
+    cmd = IO.gets "Set the instructions of the rover. M to move and L/R to rotate (ex. MMLRMLLMMR) > "
+    String.upcase(String.trim(cmd))
+  end
+
   def exec([x, y], []), do: :ok # Create plateau
   def exec([x, y], [rover_commands | new_rover]) do # Add rovers and send commands
      IO.inspect exec_for(rover_commands, [x, y]) # Print values from exec_for()
@@ -41,29 +64,6 @@ defmodule MarsExplorer do
   # Increase or decrease x or y value
   defp inc(number), do: Integer.to_string(String.to_integer(number) + 1)
   defp dec(number), do: Integer.to_string(String.to_integer(number) - 1)
-
-  # Get values from prompt
-  def get_x() do
-    x = IO.gets "What's the size of X of the area? > "
-    val = String.strip(x)
-    String.to_integer(val)
-  end
-
-  def get_y() do
-    y = IO.gets "What's the value of Y of the area? > "
-    val = String.strip(y)
-    String.to_integer(val)
-  end
-
-  def get_position() do
-    pos = IO.gets "Set the initial position of the rover (ex. 34E) > "
-    String.upcase(String.strip(pos))
-  end
-
-  def get_commands() do
-    cmd = IO.gets "Set the instructions of the rover. M to move and L/R to rotate (ex. MMLRMLLMMR) > "
-    String.upcase(String.strip(cmd))
-  end
 
 end
 

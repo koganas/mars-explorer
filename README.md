@@ -25,3 +25,7 @@ A class module that controls all the mission functions. Listed by functionality:
 
 ### script.js
 Wraps the explorer files and adds listeners to the form elements.
+
+### src/MarsExplorer.ex
+Elixir version of this project.
+``` iex marsExplorer.ex ```

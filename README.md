@@ -13,7 +13,7 @@ gulp
 ## Documentation
 
 ### _Rover.js
-A class module that returns current rover position and orientation and also functions that could change its state. Functions: `getState()`, `rotate()` and `move()`.
+A class module that returns current rover position and orientation and also methods that could change its state. Functions: `getState()`, `rotate()` and `move()`.
 
 ### _MarsExplorer.js
 A class module that controls all the mission functions. Listed by functionality:
